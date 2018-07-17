@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit <%=user.username%> Login</title>
+	<script type="text/javascript" src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js></script>
+</head>
+<body>
+
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/users">Users Home Page</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<form method='POST' action='/users/<%=user.id%>?_method=PUT'>
+			Username:<br>
+			<input type="text" name="username" placeholder="<%=user.username%>"><br>
+			Password:<br>
+			<input id='pass' type="password" name="password"><br>
+			Confirm Password <br>
+			<input id='checkpass' type="password" name="password"><br><br>
+			<button>Save Changes</button>
+		</form>
+	</main>
+	<script type="text/javascript" src='/js/app.js'></script>
+</body>
+</html>

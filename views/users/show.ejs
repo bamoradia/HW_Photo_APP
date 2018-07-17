@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%=user.username%></title>
+</head>
+<body>
+	<header>
+		<h1><%=user.username%></h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/users">Users Home Page</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<section>
+			<form method='GET' action='/users/<%=user.id%>/edit'>
+				<input type="submit" value="Edit Account Settings">
+			</form>
+		</section>
+		<section>
+			<form method='POST' action='/users/<%=user.id%>?_method=DELETE'>
+				<input type="submit" value="Delete Account">
+			</form>
+		</section>
+	</main>
+</body>
+</html>

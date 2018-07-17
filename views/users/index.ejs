@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhotoStorage Users</title>
+</head>
+<body>
+
+	<header>
+		<h1>PhotoStorage User Page</h1>
+
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/users/new">Create New Account</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<h2>List of PhotoStorage Users</h2>
+		<ul>
+			<% for (let i = 0; i < users.length; i++) { -%>
+
+				<li><a href="/users/<%=users[i].id%>"><%=users[i].username%></a></li>
+				
+			<% } -%>
+		</ul>
+	</main>
+
+</body>
+</html>

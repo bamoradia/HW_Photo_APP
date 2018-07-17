@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New User Page</title>
+	<script type="text/javascript" src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js></script>
+
+</head>
+<body>
+	<header>
+		<h1>Create New User</h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/users">Users Home Page</a></li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<main>
+		<form method='POST' action='/users'>
+			Username:<br> <input type="text" name="username" placeholder='username'><br><br>
+			Password:<br> <input id='pass' type="password" name="password" placeholder='password'><br><br>
+			Confirm Password:<br>  <input id='checkpass' type="password" name="password" placeholder='confirm password'><br><br>
+			<button>Create New User</button>
+		</form>
+	</main>
+
+	<script type="text/javascript" src='/js/app.js'></script>
+</body>
+</html>
