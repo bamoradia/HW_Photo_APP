@@ -16,6 +16,38 @@ router.get('/', async (req, res) => {
 	}
 })
 
+//login route
+router.get('/login', (req, res) => {
+	res.render('users/login.ejs')
+})
+
+//login attempt route
+router.post('/login', async (req, res) => {
+	//check if login credentials match existing information
+	//if they do then, redirect to their user show page
+	//otherwise redirect to login page with error message of wrong credentials
+	try{
+		const foundUser = await User.find({username: req.body.username})
+		if(foundUser[0].username == req.body.username) {
+			if(foundUser[0].password === req.body.password) {
+				req.session.username = req.body.username
+				req.session.login = true;
+				res.redirect('/users/'+foundUser[0].id)
+			} else {
+				console.log('wrong password')
+				req.session.login = false;
+				res.redirect('/users/login');
+			}
+		} else{
+			console.log('wrong username')
+			req.session.login = false;
+			res.redirect('/users/login');
+		}
+	} catch (err) {
+		console.log(err, 'error with user login post route')
+	}
+})
+
 
 //new route
 router.get('/new', (req, res) => {
