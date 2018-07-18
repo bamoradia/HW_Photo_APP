@@ -3,8 +3,16 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const session = require('express-session')
 
 app.use(express.static('public'));
+
+//setup session
+app.use(session({
+	secret: 'this is a random secret string that you make up',
+	resave: false, //only save when the session object has been modified
+	saveUninitialized: false //user for login sessions, we only want to save when we modify the session
+}));
 
 const port = 8383;
 
