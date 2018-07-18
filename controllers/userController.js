@@ -18,7 +18,12 @@ router.get('/', async (req, res) => {
 
 //login route
 router.get('/login', (req, res) => {
-	res.render('users/login.ejs')
+	if(req.session.login != true) {
+		res.render('users/login.ejs')
+	} else {
+		res.redirect('/users/' + req.session.userId)
+	}
+	
 })
 
 //login attempt route
@@ -32,6 +37,7 @@ router.post('/login', async (req, res) => {
 			if(foundUser[0].password === req.body.password) {
 				req.session.username = req.body.username
 				req.session.login = true;
+				req.session.userId = foundUser[0].id;
 				res.redirect('/users/'+foundUser[0].id)
 			} else {
 				console.log('wrong password')
@@ -46,6 +52,7 @@ router.post('/login', async (req, res) => {
 	} catch (err) {
 		console.log(err, 'error with user login post route')
 	}
+
 })
 
 
