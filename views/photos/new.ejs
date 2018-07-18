@@ -17,6 +17,15 @@
 
 	<main>
 		<form method='POST' action='/photos'>
+
+			<select name='userId'>
+				<% for (let i = 0; i < users.length; i++) { -%>
+					<option value='<%=users[i].id%>'><%=users[i].username%></option>
+				<% } -%>
+
+			</select><br><br>
+
+
 			Photo Name: <br>
 			<input type="text" name="name" placeholder="Photo Name"><br>
 			Photo Source: <br>

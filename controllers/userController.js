@@ -2,19 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/user');
-
+const Photo = require('../models/photo')
 
 //index route
-router.get('/', (req, res) => {
-	User.find({}, (err, foundUsers) => {
-		if(err) {
-			console.log(err, 'error with index route');
-		} else {
-			res.render('users/index.ejs', {
-				users: foundUsers
-			})
-		}
-	})
+router.get('/', async (req, res) => {
+	try {
+		const foundUsers = await User.find({});
+		res.render('users/index.ejs', {
+			users: foundUsers
+		})
+	} catch (err) {
+		console.log(err, 'error with user index route')
+	}
 })
 
 
@@ -25,66 +24,64 @@ router.get('/new', (req, res) => {
 
 
 //create route
-router.post('/', (req, res) => {
-	User.create(req.body, (err, newUser) => {
-		if(err) {
-			console.log(err, 'error with create route');
-		} else {
-			res.redirect('/users');
-		}
-	})
+router.post('/', async (req, res) => {
+	try {
+		const newUser = await User.create(req.body);
+		res.redirect('/users');
+	} catch (err) {
+		console.log(err, 'error with user create route');
+	}
 })
 
 
 //edit route
-router.get('/:id/edit', (req, res) => {
-	User.findById(req.params.id, (err, foundUser) => {
-		if(err) {
-			console.log(err, 'error in edit route');
-		} else {
-			res.render('users/edit.ejs', {
-				user: foundUser
-			});
-		}
-	})
+router.get('/:id/edit', async(req, res) => {
+	try {
+		const foundUser = await User.findById(req.params.id);
+		res.render('users/edit.ejs', {
+			user: foundUser
+		});
+	} catch (err) {
+		console.log(err, 'error with user edit route')
+	} 
 })
 
 
 //put route
-router.put('/:id', (req, res) => {
-	User.findByIdAndUpdate(req.params.id, req.body, (err, updatedUserInfo) => {
-		if(err) {
-			console.log(err, 'error in put route');
-		} else {
-			res.redirect('/users');
-		}
-	})
+router.put('/:id', async (req, res) => {
+	try {
+		const updatedUserInfo = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		res.redirect('/users');
+	} catch (err) {
+		console.log(err, 'error with user put route')
+	}
+
 })
 
 
 //delete route
-router.delete('/:id', (req, res) => {
-	User.findByIdAndRemove(req.params.id, (err, deletedUserInfo) => {
-		if(err) {
-			console.log(err, 'error with delete route');
-		} else {
-			res.redirect('/users');
-		}
-	})
+router.delete('/:id', async (req, res) => {
+	try {
+		const deletedUserInfo = await User.findByIdAndRemove(req.params.id);
+		res.redirect('/users');
+	} catch (err) {
+		console.log(err, 'error with user delete route');
+	}
 })
 
 
 //show route
-router.get('/:id', (req, res) => {
-	User.findById(req.params.id, (err, foundUser) => {
-		if(err) {
-			console.log(err, 'error with show route');
-		} else {
-			res.render('users/show.ejs', {
-				user: foundUser
-			})
-		}
-	})
+router.get('/:id', async (req, res) => {
+	try {
+		const foundUser = await User.findById(req.params.id);
+		console.log(foundUser)
+		res.render('users/show.ejs', {
+			user: foundUser
+		})
+
+	} catch (err) {
+		console.log(err, 'error with user show route')
+	}
 })
 
 

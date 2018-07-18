@@ -7,91 +7,99 @@ const User = require('../models/user')
 
 
 //INDEX ROUTE
-router.get('/', (req, res) => {
-	Photo.find({}, (err, foundPhotos) => {
-		User.find({}, (err, foundUsers) => {
-			if(err) {
-			console.log(err, 'error with index route finding photos')
-			} else {
-				res.render('photos/index.ejs', {
-					photos: foundPhotos,
-					users: foundUsers
-				});
-			}
-		})
-	})
+router.get('/', async (req, res) => {
+	try {
+		const foundPhotos = await Photo.find({});
+		const foundUsers = await User.find({});
+		res.render('photos/index.ejs', {
+			photos: foundPhotos,
+			users: foundUsers
+		});
+	} catch (err) {
+		console.log(err, 'error with photos index route')
+	}
 })
 
 
 //NEW ROUTE
-router.get('/new', (req, res) => {
-	res.render('photos/new.ejs');
+router.get('/new', async (req, res) => {
+
+	try {
+		const allUsers = await User.find({});
+		res.render('photos/new.ejs', {
+			users: allUsers
+		})
+	} catch (err) {
+		console.log(err, 'error with photos new route')
+	}
 })
 
 
 //CREATE ROUTE
-router.post('/', (req, res) => {
-	Photo.create(req.body, (err, newPhoto) => {
-		if(err) {
-			console.log(err, 'error with creating new photo route');
-		} else {
-			res.redirect('/photos');
-		}
-	})
+router.post('/', async (req, res) => {
+	try {
+		const newPhot = await Photo.create(req.body);	
+		res.redirect('/photos');
+	} catch (err) {
+		console.log(err, 'error with photos create route')
+	}
+
 })
 
 
 //EDIT ROUTE
-router.get('/:id/edit', (req, res) => {
-	Photo.findById(req.params.id, (err, foundPhoto) => {
-		if(err) {
-			console.log(err, 'error finding photo by id in edit route');
-		} else {
-			res.render('photos/edit.ejs', {
-				photo: foundPhoto
-			})
-		}
-	})
+router.get('/:id/edit', async (req, res) => {
+	try {
+		const foundPhoto = await Photo.findById(req.params.id);
+		res.render('photos/edit.ejs', {
+			photo: foundPhoto
+		})
+	} catch (err) {
+		console.log(err, 'error with photos edit route')
+	}
 })
 
 
 
 //PUT ROUTE
-router.put('/:id', (req, res) => {
-	Photo.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedPhoto) => {
-		if(err) {
-			console.log(err, 'error with finding photo to update');
-		} else {
-			res.redirect('/photos')
-		}
-	})
+router.put('/:id', async (req, res) => {
+	try {
+		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		res.redirect('/photos');
+	} catch (err) {
+		console.log(err, 'error with photos put route');
+	}
 })
 
 //DELETE ROUTE
-router.delete('/:id', (req, res) => {
-	Photo.findByIdAndRemove(req.params.id, (err, deletedPhotoInfo) => {
-		if(err) {
-			console.log(err, 'error with finding photo to delete');
-		} else {
-			res.redirect('/photos');
-		}
-	})
+router.delete('/:id', async (req, res) => {
+	try {
+		const deletedPhotoInfo = await Photo.findByIdAndRemove(req.params.id);
+		res.redirect('/photos');
+	} catch (err) {
+		console.log(err, 'error with photo delete route');
+	}
+
 })
 
 
 
 //SHOW ROUTE
-router.get('/:id', (req, res) => {
-	Photo.findById(req.params.id, (err, foundPhoto) => {
-		if(err) {
-			console.log(err, 'error finding photo in show route');
-		} else {
-			res.render('photos/show.ejs', {
-				photo: foundPhoto
-			})
-		}
-	})
+router.get('/:id', async (req, res) => {
+	try {
+		const foundPhoto = await Photo.findById(req.params.id);
+		const foundUser = await User.findOne({"photos._id": req.params.id});
+		res.render('photos/show.ejs', {
+			photo: foundPhoto//,
+			//user: foundUser
+		});
+	} catch (err) {
+		console.log(err, 'error with photo show route')
+	}
+
 })
+
+
 
 
 

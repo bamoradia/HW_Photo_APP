@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
-const User = require('./user')
-
 const photoSchema = new mongoose.Schema({
 	name: String,
-	//user: {type: User.schema, required: true},
-	source: String 
+	source: String,
+	userID: String 
 })
 
 
