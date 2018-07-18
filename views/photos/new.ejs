@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Post New Photo</title>
+</head>
+<body>
+
+	<header>
+		<h1>Create New Photo Post</h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/photos">Photos Home Page</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<form method='POST' action='/photos'>
+			Photo Name: <br>
+			<input type="text" name="name" placeholder="Photo Name"><br>
+			Photo Source: <br>
+			<input type="url" name="source" placeholder="Photo URL"><br><br>
+			<button>Create New Post</button>
+		</form>
+	</main>
+
+</body>
+</html>

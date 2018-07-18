@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%=photo.name%></title>
+	<style type="text/css">
+		img {
+			display: inline-block;
+			max-width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<header>
+		<h1><%=photo.name%></h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/photos">Photos Home Page</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<section>
+			<h3>Picture Information</h3>
+			<h3>Picture Name: <%=photo.name%></h3>
+			
+		</section>
+		<section>
+			<form method='GET' action='/photos/<%=photo.id%>/edit'>
+				<input type="submit" value="Edit Photo Information">
+			</form>
+		</section>
+
+		<section>
+			<form method='POST' action='/photos/<%=photo.id%>?_method=DELETE'>
+				<input type="submit" value="Delete Photo">
+			</form>
+		</section>
+	</main><br>
+	<div><img src="<%=photo.source%>" alt="<%=photo.name%>"></div>
+	
+
+
+</body>
+</html>

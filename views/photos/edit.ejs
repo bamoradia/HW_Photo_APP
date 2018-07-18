@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit <%=photo.name%></title>
+</head>
+<body>
+
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">Go Home</a></li>
+				<li><a href="/photos">Photos Index</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<form method='POST' action='/photos/<%=photo.id%>?_method=PUT'>
+			Photo Name: <br>
+			<input type="text" name="name" placeholder="<%=photo.name%>"><br>
+			<input type="url" name="source" placeholder="<%photo.source%>"><br>
+			<button>Save Changes</button>
+		</form>
+	</main>
+
+</body>
+</html>

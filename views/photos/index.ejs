@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhotoStorage Photos</title>
+	<style type="text/css">
+		img {
+			width: 300px;
+			height: 100%;
+		}
+		div {
+			display: inline-block;
+			width: 30%;
+			padding: 0 0 40px 0 ;
+		}
+	</style>
+</head>
+<body>
+
+	<header>
+		<h1>PhotoStorage Photo Page</h1>
+
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/photos/new">Create New Photo Post</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<% for (let i = 0; i < photos.length; i++) { -%>
+			<div>
+				<a href="/photos/<%=photos[i].id%>">
+					<img src="<%=photos[i].source%>" alt="<%=photos[i].name%>">
+				</a>
+			</div>
+		<% } -%>
+	</main>
+
+</body>
+</html>

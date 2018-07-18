@@ -21,6 +21,9 @@ app.use(methodOverride('_method'));
 
 const userController = require('./controllers/userController');
 app.use('/users', userController);
+
+const photoController = require('./controllers/photoController');
+app.use('/photos', photoController);
  
 app.get('/', (req, res) => {
 	res.render('index.ejs')
