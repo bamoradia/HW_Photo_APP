@@ -58,7 +58,11 @@ router.post('/login', async (req, res) => {
 
 //new route
 router.get('/new', (req, res) => {
-	res.render('users/new.ejs');
+	if(req.session.login != true) {
+		res.render('users/new.ejs');
+	} else {
+		res.redirect('/users/' + req.session.userId)
+	}
 })
 
 
@@ -112,12 +116,28 @@ router.delete('/:id', async (req, res) => {
 //show route
 router.get('/:id', async (req, res) => {
 	try {
-		const foundUser = await User.findById(req.params.id);
-		console.log(foundUser)
-		res.render('users/show.ejs', {
-			user: foundUser
-		})
-
+		console.log(req.session)
+		console.log(!!req.session.login);
+		if(!!req.session.login === true) {
+			const foundUser = await User.findById(req.params.id);
+			if(req.session.userId === foundUser.id) {
+				res.render('users/show.ejs', {
+					user: foundUser,
+					owner: true
+				})
+			} else {
+				res.render('users/show.ejs', {
+					user: foundUser,
+					owner: false
+				})
+			}
+		} else {
+			const foundUser = await User.findById(req.params.id);
+			res.render('users/show.ejs', {
+				user: foundUser,
+				owner: false
+			})
+		}
 	} catch (err) {
 		console.log(err, 'error with user show route')
 	}

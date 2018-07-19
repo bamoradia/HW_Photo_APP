@@ -16,16 +16,20 @@
 	</header>
 
 	<main>
-		<section>
-			<form method='GET' action='/users/<%=user.id%>/edit'>
-				<input type="submit" value="Edit Account Settings">
-			</form>
-		</section>
-		<section>
-			<form method='POST' action='/users/<%=user.id%>?_method=DELETE'>
-				<input type="submit" value="Delete Account">
-			</form>
-		</section>
+		<% if(owner === true) {%>	
+			<section>
+				<form method='GET' action='/users/<%=user.id%>/edit'>
+					<input type="submit" value="Edit Account Settings">
+				</form>
+			</section>
+			<section>
+				<form method='POST' action='/users/<%=user.id%>?_method=DELETE'>
+					<input type="submit" value="Delete Account">
+				</form>
+			</section>
+		<% } %>
+
+		
 	</main>
 </body>
 </html>
