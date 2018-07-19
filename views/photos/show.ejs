@@ -13,7 +13,7 @@
 
 	<header>
 		<h1><%=photo.name%></h1>
-		<!-- <h3>Posted by:</h3> -->
+		<h3>Posted by: <a href="/users/<%=user.id%>"><%=user.username%></a></h3>
 		<nav>
 			<ul>
 				<li><a href="/">Home</a></li>
@@ -24,11 +24,7 @@
 	</header>
 
 	<main>
-		<section>
-			<h3>Picture Information</h3>
-			<h3>Picture Name: <%=photo.name%></h3>
-			
-		</section>
+
 		<section>
 			<form method='GET' action='/photos/<%=photo.id%>/edit'>
 				<input type="submit" value="Edit Photo Information">

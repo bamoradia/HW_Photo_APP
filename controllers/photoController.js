@@ -103,10 +103,11 @@ router.delete('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	try {
 		const foundPhoto = await Photo.findById(req.params.id);
-		const foundUser = await User.findOne({"photos._id": req.params.id});
+		const foundUser = await User.find({"photos.source": foundPhoto.source});
+		console.log(foundUser)
 		res.render('photos/show.ejs', {
-			photo: foundPhoto//,
-			//user: foundUser
+			photo: foundPhoto,
+			user: foundUser[0]
 		});
 	} catch (err) {
 		console.log(err, 'error with photo show route')
