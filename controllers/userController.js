@@ -116,8 +116,6 @@ router.delete('/:id', async (req, res) => {
 //show route
 router.get('/:id', async (req, res) => {
 	try {
-		console.log(req.session)
-		console.log(!!req.session.login);
 		if(!!req.session.login === true) {
 			const foundUser = await User.findById(req.params.id);
 			if(req.session.userId === foundUser.id) {

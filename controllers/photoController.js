@@ -11,10 +11,20 @@ router.get('/', async (req, res) => {
 	try {
 		const foundPhotos = await Photo.find({});
 		const foundUsers = await User.find({});
-		res.render('photos/index.ejs', {
-			photos: foundPhotos,
-			users: foundUsers
-		});
+
+		if(!!req.session.login === true) {
+			res.render('photos/index.ejs', {
+				photos: foundPhotos,
+				users: foundUsers, 
+				login: true
+			});
+		} else {
+			res.render('photos/index.ejs', {
+				photos: foundPhotos,
+				users: foundUsers, 
+				login: false
+			});
+		}
 	} catch (err) {
 		console.log(err, 'error with photos index route')
 	}
@@ -38,7 +48,12 @@ router.get('/new', async (req, res) => {
 //CREATE ROUTE
 router.post('/', async (req, res) => {
 	try {
-		const newPhot = await Photo.create(req.body);	
+
+		const newPhoto = await Photo.create(req.body);
+		const foundUser = await User.findById(req.session.userId);
+		foundUser.photos.push(newPhoto);
+		const data = await foundUser.save();
+
 		res.redirect('/photos');
 	} catch (err) {
 		console.log(err, 'error with photos create route')
